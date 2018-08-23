@@ -2,7 +2,6 @@ package earthquake.xml;
 
 import earthquake.entity.QuakeEntry;
 import earthquake.util.Location;
-import earthquake.xml.processor.QuakeEntryProcessor;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -11,14 +10,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.function.Consumer;
 
 class QuakeEntryHandler extends DefaultHandler {
-    private final QuakeEntryProcessor entryProcessor;
+    private final Consumer<QuakeEntry> entryProcessor;
     private final QuakeEntry.QuakeEntryBuilder entryBuilder;
     private final StringBuilder sb;
     private final DateTimeFormatter dateTimeFormat;
 
-    QuakeEntryHandler(QuakeEntryProcessor entryProcessor) {
+    QuakeEntryHandler(Consumer<QuakeEntry> entryProcessor) {
         this.entryProcessor = entryProcessor;
         this.entryBuilder = new QuakeEntry.QuakeEntryBuilder();
         this.sb = new StringBuilder();
@@ -45,7 +45,7 @@ class QuakeEntryHandler extends DefaultHandler {
     public void endElement(String uri, String localName, String qName) throws SAXException {
         switch (qName) {
             case "entry":
-                this.entryProcessor.process(entryBuilder.build());
+                this.entryProcessor.accept(entryBuilder.build());
                 entryBuilder.reset();
                 sb.setLength(0);
             case "id":

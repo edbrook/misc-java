@@ -1,15 +1,16 @@
 package earthquake.xml;
 
-import earthquake.xml.processor.QuakeEntryProcessor;
+import earthquake.entity.QuakeEntry;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.IOException;
+import java.util.function.Consumer;
 
 public class QuakeXMLLoader {
-    public static void load(String uri, QuakeEntryProcessor entryProcessor) {
+    public static void load(String uri, Consumer<QuakeEntry> entryProcessor) {
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         try {
             SAXParser saxParser = saxParserFactory.newSAXParser();

@@ -1,7 +1,6 @@
 package earthquake;
 
 import earthquake.xml.QuakeXMLLoader;
-import earthquake.xml.processor.QuakeEntryProcessor;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
