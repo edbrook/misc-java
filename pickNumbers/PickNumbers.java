@@ -5,41 +5,15 @@ import java.util.Arrays;
 
 class PickNumbers {
 
-    static int pickingNumbers(int[] numbersIn) {
-        int[] numbers = Arrays.copyOf(numbersIn, numbersIn.length);
-        Arrays.sort(numbers);
-        
-        int maxCount = 0;
-        int countNumbersWithinRange = 0;
-        int lowestNumberInRange = numbers[0];
-        int lastNumber = lowestNumberInRange;
-        int countConsecutiveSameNumber = 0;
-        
-        for (int i = 0; i < numbers.length; i++) {
-            int currentNumber = numbers[i];
-
-            if (lastNumber != currentNumber) {
-                if (Math.abs(currentNumber - lowestNumberInRange) > 1) {
-                    if (Math.abs(currentNumber - lastNumber) < 2) {
-                        lowestNumberInRange = lastNumber;
-                        countNumbersWithinRange = countConsecutiveSameNumber;
-                    } else {
-                        lowestNumberInRange = currentNumber;
-                        countNumbersWithinRange = 0;
-                    }
-                }
-                countConsecutiveSameNumber = 0;
-            }
-
-            countNumbersWithinRange++;
-            countConsecutiveSameNumber++;
-            lastNumber = currentNumber;
-            maxCount = Math.max(maxCount, countNumbersWithinRange);
-
-            System.err.printf("%3d [cur:%d, max:%d]\n",
-                    currentNumber, countNumbersWithinRange, maxCount);
+    static int pickingNumbers(int[] numbers) {
+        int[] frequency = new int[100];
+        for (int n : numbers) {
+            frequency[n]++;
         }
-        
+        int maxCount = 0;
+        for (int i = 0; i < frequency.length - 1; i++) {
+            maxCount = Math.max(maxCount, frequency[i] + frequency[i+1]);
+        }
         return maxCount;
     }
 
