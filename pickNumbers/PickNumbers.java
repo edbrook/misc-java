@@ -20,8 +20,8 @@ class PickNumbers {
 
             if (lastNumber != currentNumber) {
                 if (Math.abs(currentNumber - lowestNumberInRange) > 1) {
-                    if (Math.abs(currentNumber - numbers[i-1]) < 2) {
-                        lowestNumberInRange = numbers[i-1];
+                    if (Math.abs(currentNumber - lastNumber) < 2) {
+                        lowestNumberInRange = lastNumber;
                         countNumbersWithinRange = countConsecutiveSameNumber;
                     } else {
                         lowestNumberInRange = currentNumber;
